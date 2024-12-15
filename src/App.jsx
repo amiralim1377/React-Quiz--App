@@ -7,6 +7,7 @@ import store from "../store";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Result from "./pages/Result/Result";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/question",
         element: <Question />,
+      },
+      {
+        path: "/result",
+        element: <Result />,
       },
     ],
   },

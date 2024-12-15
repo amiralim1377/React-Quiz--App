@@ -16,6 +16,7 @@ export default {
         sans: ["Raleway", "sans-serif"],
         opensans: ["Open Sans", "sans-serif"],
       },
+      wordBreak: { "break-word": "break-word" },
     },
   },
   plugins: [],

@@ -1,18 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
-import { nextQuestion, resetinitialState } from "../../Slice/questionSlice";
+import { incrementPoints, nextQuestion } from "../../Slice/questionSlice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function QuestionItem() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const questions = useSelector((state) => state.questions?.questions);
 
-  console.log(questions);
+  const [clickedIndex, setClickedIndex] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
+  console.log(isClicked);
 
   const currentQuestionIndex = useSelector(
-    (state) => state.questions?.currentQuestionIndex
+    (state) => state.questions?.currentQuestionIndex,
   );
-  console.log(currentQuestionIndex);
+
+  const correctOption = useSelector(
+    (state) => state.questions?.questions[currentQuestionIndex]?.correctoption,
+  );
+
+  const points = useSelector(
+    (state) => state.questions?.questions[currentQuestionIndex]?.points,
+  );
 
   if (
     !questions ||
@@ -24,66 +34,67 @@ function QuestionItem() {
 
   const handleNextQuestion = () => {
     dispatch(nextQuestion());
+    setIsClicked(false);
+    setClickedIndex(null);
   };
 
-  function handlegotoresulttest() {
-    navigate("/");
-    dispatch(resetinitialState());
+  const handleOptionClick = (index) => {
+    setIsClicked(true);
+    setClickedIndex(index);
+    if (index === correctOption) {
+      dispatch(incrementPoints(points));
+    }
+  };
+
+  function handleGoToResultTest() {
+    navigate("/result");
   }
 
-  const options1 = questions[currentQuestionIndex]?.option?.slice(0, 2);
-  const options2 = questions[currentQuestionIndex]?.option.slice(2, 4);
+  const options = questions[currentQuestionIndex]?.option;
 
   return (
-    <div className="p-2  h-full flex flex-col justify-between  ">
-      <p className="text-white  font-opensans text-center md:text-left font-bold text-xs lg:text-3xl md:text-2xl hover:opacity-55 hover:cursor-pointer">
-        {/* Which is the most popular JavaScript framework? */}
+    <div className="flex h-full flex-col justify-between p-2">
+      <p className="text-center font-opensans text-xs font-bold text-white hover:cursor-pointer hover:opacity-55 md:text-left md:text-xl lg:text-2xl">
         {questions[currentQuestionIndex]?.question}
       </p>
-      <div className=" md:mt-7 mt-3   flex flex-col md:p-6   gap-5 justify-between  items-center   ">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4   w-full">
-          {options1.map((option, index) => (
-            <button
-              key={index}
-              className={`
-                bg-accentBlue hover:bg-accentCyan p-3 md:px-5 lg:px-8 xl:px-10 rounded-md w-full text-white font-opensans  md:text-base text-xs font-bold mt-2`}
-            >
-              {" "}
-              {option}{" "}
-            </button>
-          ))}
-        </div>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4   w-full">
-          {options2.map((option, index) => (
-            <button
-              key={index}
-              className="bg-accentBlue hover:bg-accentCyan p-3 md:px-5 lg:px-8 xl:px-10  rounded-md w-full text-white font-opensans md:text-base text-xs font-bold mt-2 "
-            >
-              {" "}
-              {option}{" "}
-            </button>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {options.map((option, index) => (
+          <button
+            key={index}
+            className={`${isClicked && index === correctOption ? "bg-green-500" : ""} ${isClicked && index === clickedIndex && index !== correctOption ? "bg-red-500" : ""} ${!isClicked ? "bg-accentBlue hover:bg-accentCyan" : "bg-gray-500"} ${!isClicked ? "bg-accentBlue hover:bg-accentCyan" : ""} ${isClicked ? "cursor-not-allowed" : "cursor-pointer"} button mt-2 h-12 w-full rounded-md bg-accentBlue p-4 font-sans text-xs font-thin text-white md:h-20 md:text-base md:font-light lg:font-semibold xl:font-bold`}
+            onClick={() => handleOptionClick(index)}
+            disabled={isClicked}
+          >
+            {" "}
+            {option}{" "}
+          </button>
+        ))}
       </div>
+
       <div
         id="timer-next-wrapper"
-        className="flex flex-row items-center justify-between mt-10"
+        className="mt-10 flex flex-row items-center justify-between"
       >
         <div>timer</div>
-        {currentQuestionIndex === questions.length - 1 ? (
-          <button
-            onClick={handlegotoresulttest}
-            className="bg-darkBlue2 hover:opacity-40 p-2 md:p-2 rounded-md     text-white font-opensans md:text-base text-xs font-semibold"
-          >
-            Finish Test
-          </button>
-        ) : (
+        {isClicked && currentQuestionIndex < questions.length - 1 ? (
           <button
             onClick={handleNextQuestion}
-            className="bg-darkBlue2 hover:opacity-40 p-2 md:p-2 rounded-md     text-white font-opensans md:text-base text-xs font-semibold"
+            className="rounded-md bg-darkBlue2 p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-2 md:text-base md:font-semibold"
           >
-            NextQuestion
+            {" "}
+            Next Question{" "}
           </button>
+        ) : (
+          isClicked &&
+          currentQuestionIndex === questions.length - 1 && (
+            <button
+              onClick={handleGoToResultTest}
+              className="rounded-md bg-darkBlue2 p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-2 md:text-base md:font-semibold"
+            >
+              {" "}
+              Finish Test{" "}
+            </button>
+          )
         )}
       </div>
     </div>
