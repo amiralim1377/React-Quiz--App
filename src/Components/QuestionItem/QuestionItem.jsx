@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { incrementPoints, nextQuestion } from "../../Slice/questionSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Timer from "../Timer/Timer";
 
 function QuestionItem() {
   const dispatch = useDispatch();
@@ -53,51 +54,54 @@ function QuestionItem() {
   const options = questions[currentQuestionIndex]?.option;
 
   return (
-    <div className="flex h-full flex-col justify-between p-2">
-      <p className="text-center font-opensans text-xs font-bold text-white hover:cursor-pointer hover:opacity-55 md:text-left md:text-xl lg:text-2xl">
-        {questions[currentQuestionIndex]?.question}
-      </p>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {options.map((option, index) => (
-          <button
-            key={index}
-            className={`${isClicked && index === correctOption ? "bg-green-500" : ""} ${isClicked && index === clickedIndex && index !== correctOption ? "bg-red-500" : ""} ${!isClicked ? "bg-accentBlue hover:bg-accentCyan" : "bg-gray-500"} ${!isClicked ? "bg-accentBlue hover:bg-accentCyan" : ""} ${isClicked ? "cursor-not-allowed" : "cursor-pointer"} button mt-2 h-12 w-full rounded-md bg-accentBlue p-4 font-sans text-xs font-thin text-white md:h-20 md:text-base md:font-light lg:font-semibold xl:font-bold`}
-            onClick={() => handleOptionClick(index)}
-            disabled={isClicked}
-          >
-            {" "}
-            {option}{" "}
-          </button>
-        ))}
-      </div>
-
-      <div
-        id="timer-next-wrapper"
-        className="mt-10 flex flex-row items-center justify-between"
-      >
-        <div>timer</div>
-        {isClicked && currentQuestionIndex < questions.length - 1 ? (
-          <button
-            onClick={handleNextQuestion}
-            className="rounded-md bg-darkBlue2 p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-2 md:text-base md:font-semibold"
-          >
-            {" "}
-            Next Question{" "}
-          </button>
-        ) : (
-          isClicked &&
-          currentQuestionIndex === questions.length - 1 && (
+    <>
+      <div className="flex h-full flex-col justify-between p-2">
+        <p className="text-balck text-center font-opensans text-xs font-bold hover:cursor-pointer md:text-left md:text-xl lg:text-2xl dark:text-white">
+          {questions[currentQuestionIndex]?.question}
+        </p>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {options.map((option, index) => (
             <button
-              onClick={handleGoToResultTest}
-              className="rounded-md bg-darkBlue2 p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-2 md:text-base md:font-semibold"
+              key={index}
+              className={`${isClicked && index === correctOption ? "bg-green-500" : ""} ${isClicked && index === clickedIndex && index !== correctOption ? "bg-red-500" : ""} ${!isClicked ? "bg-accentBlue hover:bg-accentCyan" : "bg-gray-500"} ${!isClicked ? "bg-accentBlue hover:bg-accentCyan" : ""} ${isClicked ? "cursor-not-allowed" : "cursor-pointer"} button mt-2 h-12 w-full rounded-md bg-accentBlue p-4 font-sans text-xs font-thin text-black md:h-20 md:text-base md:font-light lg:font-semibold xl:font-bold dark:text-white`}
+              onClick={() => handleOptionClick(index)}
+              disabled={isClicked}
             >
               {" "}
-              Finish Test{" "}
+              {option}{" "}
             </button>
-          )
-        )}
+          ))}
+        </div>
+        <div
+          id="timer-next-wrapper"
+          className="mt-10 flex flex-row items-center justify-between"
+        >
+          <div>
+            <Timer />
+          </div>
+          {isClicked && currentQuestionIndex < questions.length - 1 ? (
+            <button
+              onClick={handleNextQuestion}
+              className="rounded-md bg-accentBlue p-2 font-opensans text-xs text-black hover:scale-95 hover:opacity-40 md:p-2 md:text-base md:font-semibold dark:border dark:border-white dark:bg-darkBlue2 dark:text-white"
+            >
+              {" "}
+              Next Question{" "}
+            </button>
+          ) : (
+            isClicked &&
+            currentQuestionIndex === questions.length - 1 && (
+              <button
+                onClick={handleGoToResultTest}
+                className="rounded-md bg-accentBlue p-2 font-opensans text-xs text-black hover:scale-95 hover:opacity-40 md:p-2 md:text-base md:font-semibold dark:border dark:border-white dark:bg-darkBlue2 dark:text-white"
+              >
+                {" "}
+                Finish Test{" "}
+              </button>
+            )
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

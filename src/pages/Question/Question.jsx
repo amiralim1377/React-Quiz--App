@@ -6,6 +6,7 @@ import { resetinitialState, setQuestions } from "../../Slice/questionSlice";
 import { useQuery } from "@tanstack/react-query";
 import { OrbitProgress } from "react-loading-indicators";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "../../Components/ThemeToggle/ThemeToggle";
 
 function Question() {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ function Question() {
           className="rounded-md bg-darkBlue2 p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-6 md:text-base md:font-semibold"
         >
           {" "}
-          Reset Test{" "}
+          Back To Homepage{" "}
         </button>
       </div>
     );
@@ -68,12 +69,16 @@ function Question() {
 
   return (
     <div className="flex min-h-full w-full flex-col p-2">
-      <div className="flex flex-row items-center justify-between border-b-2">
-        <div className="text-xs text-white md:text-2xl">
+      <div className="flex flex-row items-center justify-between border-b-2 border-b-black dark:border-b-white">
+        <div className="text-xs text-black md:text-2xl dark:text-white">
           <span>Question: </span>
           <span>{currentQuestionIndex + 1}/15</span>
         </div>
-        <div className="text-xs text-white md:text-2xl">
+        <div className="mb-2">
+          <ThemeToggle />
+        </div>
+
+        <div className="text-xs text-black md:text-2xl dark:text-white">
           <span>points: </span>
           <span>{points}/280</span>
         </div>

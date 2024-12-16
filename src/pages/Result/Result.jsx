@@ -19,7 +19,7 @@ function Result() {
           className="hidden h-20 w-20 md:block"
           alt=""
         />
-        <h1 className="text-center font-sans text-base font-bold text-white hover:opacity-65 md:text-3xl lg:text-4xl">
+        <h1 className="text-center font-sans text-base font-bold text-black hover:opacity-65 md:text-3xl lg:text-4xl dark:text-white">
           Result of The React Quiz!
         </h1>
         <img
@@ -28,14 +28,14 @@ function Result() {
           alt=""
         />
       </div>
-      <p className="text-center font-sans text-base font-bold text-white hover:opacity-65 md:text-3xl lg:text-4xl">
+      <p className="text-center font-sans text-base font-bold text-black hover:opacity-65 md:text-3xl lg:text-4xl dark:text-white">
         You scored {points} out of 280.
         <span>({Math.floor((points / 280) * 100)}%)</span>
       </p>
 
       <button
         onClick={handleGoToHomePage}
-        className="rounded-md bg-darkBlue2 p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-6 md:text-base md:font-semibold"
+        className="rounded-md bg-accentBlue p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-6 md:text-base md:font-semibold dark:border dark:border-white dark:bg-darkBlue2"
       >
         {" "}
         Reset Test{" "}
