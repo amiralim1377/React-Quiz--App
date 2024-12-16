@@ -54,11 +54,11 @@ function Question() {
 
   if (isError || !questions || questions.length === 0) {
     return (
-      <div className="flex h-full flex-col items-center justify-between text-xs text-white md:text-2xl">
+      <div className="text-balck flex h-full flex-col items-center justify-between text-xs md:text-2xl dark:text-white">
         Error loading questions
         <button
           onClick={handleGoToHomePage}
-          className="rounded-md bg-darkBlue2 p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-6 md:text-base md:font-semibold"
+          className="text-balck rounded-md bg-darkBlue2 p-2 font-opensans text-xs hover:scale-95 hover:opacity-40 md:p-6 md:text-base md:font-semibold dark:text-white"
         >
           {" "}
           Back To Homepage{" "}

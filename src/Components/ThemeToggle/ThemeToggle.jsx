@@ -30,14 +30,14 @@ export default function ThemeToggle() {
       id="theme-toggle"
       onClick={toggleMode}
       aria-label="Toggle Dark Mode"
-      className="rounded bg-gray-200 p-2 dark:bg-darkBlue3"
+      className="rounded bg-gray-200 p-2 transition-all duration-300 ease-in-out dark:bg-darkBlue3"
     >
       {isDarkMode ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-6 w-6"
+          className="h-6 w-6 transition-colors duration-300 ease-in-out"
         >
           <path
             fillRule="evenodd"
@@ -50,7 +50,7 @@ export default function ThemeToggle() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-6 w-6"
+          className="h-6 w-6 transition-colors duration-300 ease-in-out"
         >
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
         </svg>
