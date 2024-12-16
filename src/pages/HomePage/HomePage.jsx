@@ -22,7 +22,7 @@ function HomePage() {
         Do You Want To Test Your React Mastery? Just Click Down
       </p>
       <Link to="/question">
-        <button className="rounded-lg bg-accentBlue px-2 py-1 font-opensans text-2xl font-bold uppercase text-white hover:scale-95 hover:bg-accentCyan hover:opacity-40 md:px-4 md:py-2 dark:border dark:border-white dark:bg-darkBlue3">
+        <button className="rounded-lg bg-accentBlue px-2 py-1 font-opensans text-2xl font-bold uppercase text-black hover:scale-95 hover:bg-accentCyan hover:opacity-40 md:px-4 md:py-2 dark:border dark:border-white dark:bg-darkBlue3 dark:text-white">
           start test
         </button>
       </Link>

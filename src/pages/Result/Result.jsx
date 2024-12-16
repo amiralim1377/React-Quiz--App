@@ -35,7 +35,7 @@ function Result() {
 
       <button
         onClick={handleGoToHomePage}
-        className="rounded-md bg-accentBlue p-2 font-opensans text-xs text-white hover:scale-95 hover:opacity-40 md:p-6 md:text-base md:font-semibold dark:border dark:border-white dark:bg-darkBlue2"
+        className="rounded-md bg-accentBlue p-2 font-opensans text-xs text-black hover:scale-95 hover:opacity-40 md:p-6 md:text-base md:font-semibold dark:border dark:border-white dark:bg-darkBlue2 dark:text-white"
       >
         {" "}
         Reset Test{" "}
